@@ -1,7 +1,38 @@
 const { createCanvas, registerFont, loadImage } = require('canvas')
 const fs = require('fs')
 
-registerFont('./fonts/NotoSansCJKjp-Bold.ttf', { family: 'Noto Sans CJK JP', weight: 'bold' })
+const config = {
+  image: {
+    width: 1200,
+    height: 630,
+    backgroundColor: '#15202B',
+    // backgroundImage: require.resolve('')
+  },
+  style: {
+    fontFamily: 'Noto Sans CJK JP',
+    title: {
+      fontColor: '#1DA1F2',
+      fontWeight: 'bold',
+      fontSize: 64,
+      paddingTop: 100,
+      paddingBottom: 200,
+      paddingLeft: 150,
+      paddingRight: 150,
+    },
+    author: {
+      fontColor: '#DDDDDD',
+      fontWeight: 'bold',
+      fontSize: 42,
+    }
+  },
+  meta: {
+    title: 'ブランチ名をもとにIssueとPull Requestを自動で紐付けるGitHub Actionを作った',
+    author: 'Kentaro Matsushita'
+  },
+  fontFile: './fonts/NotoSansCJKjp-Bold.ttf',
+}
+
+registerFont(config.fontFile, { family: config.style.fontFamily, weight: config.style.fontWeight })
 
 /**
  * @see https://github.com/shuhei/shuhei.github.com/blob/source/plugins/title-image.js 
@@ -116,36 +147,6 @@ async function createTwitterCards(options) {
 
   const buffer = canvas.toBuffer();
   fs.writeFileSync("test.png", buffer);
-}
-
-const config = {
-  image: {
-    width: 1200,
-    height: 630,
-    backgroundColor: '#15202B',
-    // backgroundImage: require.resolve('')
-  },
-  style: {
-    fontFamily: 'Noto Sans CJK JP',
-    title: {
-      fontColor: '#1DA1F2',
-      fontWeight: 'bold',
-      fontSize: 64,
-      paddingTop: 100,
-      paddingBottom: 200,
-      paddingLeft: 150,
-      paddingRight: 150,
-    },
-    author: {
-      fontColor: '#DDDDDD',
-      fontWeight: 'bold',
-      fontSize: 42,
-    }
-  },
-  meta: {
-    title: 'ブランチ名をもとにIssueとPull Requestを自動で紐付けるGitHub Actionを作った',
-    author: 'Kentaro Matsushita'
-  }
 }
 
 createTwitterCards(config)
