@@ -6,7 +6,7 @@ const config = {
     width: 1200,
     height: 630,
     backgroundColor: '#15202B',
-    // backgroundImage: require.resolve('')
+    backgroundImage: require.resolve('./images/background.jpg')
   },
   style: {
     fontFamily: 'Noto Sans CJK JP',
@@ -102,7 +102,7 @@ function getFontStyle(style) {
   return `${style.fontWeight} ${style.fontSize}px "${style.fontFamily}"`
 }
 
-async function getIconImage(fileData) {
+async function getImage(fileData) {
   const image = new Image()
   image.src = fileData
   return image
@@ -115,6 +115,12 @@ async function createTwitterCards(options) {
   // Draw a background
   ctx.fillStyle = options.image.backgroundColor
   ctx.fillRect(0, 0, options.image.width, options.image.height);
+
+  if ('backgroundImage' in config.image && config.image.backgroundImage) {
+    const imageFile = await fs.readFile(config.image.backgroundImage);
+    const image = await getImage(imageFile)
+    ctx.drawImage(image, 0, 0, options.image.width, options.image.height)
+  }
 
   const { lines } = calcurateTextPositionIntoRectangle({
     ctx,
@@ -146,7 +152,7 @@ async function createTwitterCards(options) {
 
   // Draw a icon
   const imageFile = await fs.readFile(require.resolve(config.iconFile));
-  const image = await getIconImage(imageFile)
+  const image = await getImage(imageFile)
   ctx.drawImage(image, 150, options.image.height - 150, 80, 80)
 
   const buffer = canvas.toBuffer();
