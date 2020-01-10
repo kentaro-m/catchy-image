@@ -6,7 +6,7 @@ registerFont('./fonts/NotoSansCJKjp-Bold.ttf', { family: 'Noto Sans CJK JP', wei
 /**
  * @see https://github.com/shuhei/shuhei.github.com/blob/source/plugins/title-image.js 
  */
-function calcurateTextIntoRectangle({ ctx, text, style, rect }) {
+function calcurateTextPositionIntoRectangle({ ctx, text, style, rect }) {
   // Reduce font size until the title fits into the image.
   for (let fontSize = style.fontSize; fontSize > 0; fontSize -= 1) {
     ctx.font = getFontStyle({
@@ -79,7 +79,7 @@ async function createTwitterCards(options) {
 
   ctx.fillStyle = options.style.title.fontColor
 
-  const { lines } = calcurateTextIntoRectangle({
+  const { lines } = calcurateTextPositionIntoRectangle({
     ctx,
     text: options.meta.title,
     style: {
@@ -130,9 +130,9 @@ const config = {
     title: {
       fontColor: '#1DA1F2',
       fontWeight: 'bold',
-      fontSize: 72,
-      paddingTop: 0,
-      paddingBottom: 175,
+      fontSize: 64,
+      paddingTop: 100,
+      paddingBottom: 200,
       paddingLeft: 150,
       paddingRight: 150,
     },
@@ -143,7 +143,7 @@ const config = {
     }
   },
   meta: {
-    title: 'ブランチ名をもとにIssueとPull Requestを自動で紐付けるGitHub Actionを作ったあああああああああああああああああああああああああああああああああああああブランチ名',
+    title: 'ブランチ名をもとにIssueとPull Requestを自動で紐付けるGitHub Actionを作った',
     author: 'Kentaro Matsushita'
   }
 }
