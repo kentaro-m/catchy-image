@@ -16,7 +16,7 @@ function calcurateTextIntoRectangle({ ctx, text, style, rect }) {
     })
     // Add support for surrogate-pair.
     let words = [...text]
-    let { paddingVertical, paddingHorizontal } = rect
+    let { paddingHorizontal, paddingTop } = rect
     const lines = []
 
     while (words.length > 0) {
@@ -42,14 +42,14 @@ function calcurateTextIntoRectangle({ ctx, text, style, rect }) {
       lines.push({
         text: slicedText,
         x: paddingHorizontal,
-        y: paddingVertical + textSize.emHeightAscent
+        y: paddingTop + textSize.emHeightAscent
       });
 
       words = words.slice(i);
-      paddingVertical += textSize.emHeightAscent + textSize.emHeightDescent;
+      paddingTop += textSize.emHeightAscent + textSize.emHeightDescent;
     }
 
-    const space = rect.paddingVertical + rect.height - paddingVertical;
+    const space = rect.paddingTop + rect.height - paddingTop;
     if (words.length === 0 && space >= 0) {
       // The title fits into the image with the font size.
       // Vertically centering the text in the given rectangle.
@@ -89,10 +89,11 @@ async function createTwitterCards(options) {
     },
     rect: {
       paddingHorizontal: options.style.title.paddingHorizontal,
-      paddingVertical: options.style.title.paddingVertical,
+      paddingTop: options.style.title.paddingTop,
+      paddingBottom: options.style.title.paddingBottom,
       width: options.image.width - options.style.title.paddingHorizontal * 2,
       height:
-        options.image.height - 300
+        options.image.height - options.style.title.paddingTop - options.style.title.paddingBottom
     }
   })
 
@@ -130,7 +131,8 @@ const config = {
       fontWeight: 'bold',
       fontSize: 72,
       paddingHorizontal: 150,
-      paddingVertical: 100,
+      paddingTop: 0,
+      paddingBottom: 175,
     },
     author: {
       fontColor: '#DDDDDD',
@@ -139,7 +141,7 @@ const config = {
     }
   },
   meta: {
-    title: 'ブランチ名をもとにIssueとPull Requestを自動で紐付けるGitHub Actionを作った',
+    title: 'ブランチ名をもとにIssueとPull Requestを自動で紐付けるGitHub Actionを作ったあああああああああああああああああああああああああああああああああああああブランチ名',
     author: 'Kentaro Matsushita'
   }
 }
