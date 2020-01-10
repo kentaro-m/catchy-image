@@ -112,10 +112,9 @@ async function createTwitterCards(options) {
   const canvas = createCanvas(options.image.width, options.image.height)
   const ctx = canvas.getContext('2d')
 
+  // Draw a background
   ctx.fillStyle = options.image.backgroundColor
   ctx.fillRect(0, 0, options.image.width, options.image.height);
-
-  ctx.fillStyle = options.style.title.fontColor
 
   const { lines } = calcurateTextPositionIntoRectangle({
     ctx,
@@ -136,11 +135,13 @@ async function createTwitterCards(options) {
     }
   })
 
+  // Draw title texts
   lines.forEach(({ text, x, y }) => {
     ctx.fillStyle = options.style.title.fontColor
     ctx.fillText(text, x, y);
   });
 
+  // Draw an author text
   ctx.font = getFontStyle({
     fontWeight: options.style.author.fontWeight,
     fontSize: options.style.author.fontSize,
@@ -149,6 +150,7 @@ async function createTwitterCards(options) {
   ctx.fillStyle = options.style.author.fontColor
   ctx.fillText(options.meta.author, 260, options.image.height - 90);
 
+  // Draw a icon
   const imageFile = await fs.readFile(require.resolve(config.iconFile));
   const image = await getIconImage(imageFile)
   ctx.drawImage(image, 150, options.image.height - 150, 80, 80)
