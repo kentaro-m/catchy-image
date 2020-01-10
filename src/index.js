@@ -16,7 +16,7 @@ function calcurateTextIntoRectangle({ ctx, text, style, rect }) {
     })
     // Add support for surrogate-pair.
     let words = [...text]
-    let { paddingLeft, paddingTop } = rect
+    let { paddingLeft, paddingTop } = style
     const lines = []
 
     while (words.length > 0) {
@@ -49,7 +49,7 @@ function calcurateTextIntoRectangle({ ctx, text, style, rect }) {
       paddingTop += textSize.emHeightAscent + textSize.emHeightDescent;
     }
 
-    const space = rect.paddingTop + rect.height - paddingTop;
+    const space = style.paddingTop + rect.height - paddingTop;
     if (words.length === 0 && space >= 0) {
       // The title fits into the image with the font size.
       // Vertically centering the text in the given rectangle.
@@ -86,12 +86,12 @@ async function createTwitterCards(options) {
       fontSize: options.style.title.fontSize,
       fontFamily: options.style.fontFamily,
       fontWeight: options.style.title.fontWeight,
-    },
-    rect: {
       paddingTop: options.style.title.paddingTop,
       paddingBottom: options.style.title.paddingBottom,
       paddingLeft: options.style.title.paddingLeft,
       paddingRight: options.style.title.paddingRight,
+    },
+    rect: {
       width: options.image.width - options.style.title.paddingLeft - options.style.title.paddingRight,
       height:
         options.image.height - options.style.title.paddingTop - options.style.title.paddingBottom
