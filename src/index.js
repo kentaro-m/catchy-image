@@ -1,5 +1,5 @@
-const { createCanvas, registerFont, loadImage } = require('canvas')
-const fs = require('fs')
+const { createCanvas, registerFont, Image } = require('canvas')
+const fs = require('fs').promises
 
 const config = {
   image: {
@@ -30,6 +30,7 @@ const config = {
     author: 'Kentaro Matsushita'
   },
   fontFile: './fonts/NotoSansCJKjp-Bold.ttf',
+  iconFile: './images/avatar.jpeg',
 }
 
 registerFont(config.fontFile, { family: config.style.fontFamily, weight: config.style.fontWeight })
@@ -101,6 +102,12 @@ function getFontStyle(style) {
   return `${style.fontWeight} ${style.fontSize}px "${style.fontFamily}"`
 }
 
+async function getIconImage(fileData) {
+  const image = new Image()
+  image.src = fileData
+  return image
+}
+
 async function createTwitterCards(options) {
   const canvas = createCanvas(options.image.width, options.image.height)
   const ctx = canvas.getContext('2d')
@@ -142,11 +149,12 @@ async function createTwitterCards(options) {
   ctx.fillStyle = options.style.author.fontColor
   ctx.fillText(options.meta.author, 260, options.image.height - 90);
 
-  const profileImage = await loadImage('https://blog.kentarom.com/static/4db386e4c1729715cf6a03185d4fc448/c42a3/avatar.jpg')
-  ctx.drawImage(profileImage, 150, options.image.height - 150, 80, 80)
+  const imageFile = await fs.readFile(require.resolve(config.iconFile));
+  const image = await getIconImage(imageFile)
+  ctx.drawImage(image, 150, options.image.height - 150, 80, 80)
 
   const buffer = canvas.toBuffer();
-  fs.writeFileSync("test.png", buffer);
+  await fs.writeFile("test.png", buffer);
 }
 
 createTwitterCards(config)
