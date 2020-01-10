@@ -120,13 +120,8 @@ async function createTwitterCards(options) {
     ctx,
     text: options.meta.title,
     style: {
-      fontSize: options.style.title.fontSize,
+      ...options.style.title,
       fontFamily: options.style.fontFamily,
-      fontWeight: options.style.title.fontWeight,
-      paddingTop: options.style.title.paddingTop,
-      paddingBottom: options.style.title.paddingBottom,
-      paddingLeft: options.style.title.paddingLeft,
-      paddingRight: options.style.title.paddingRight,
     },
     rect: {
       width: options.image.width - options.style.title.paddingLeft - options.style.title.paddingRight,
@@ -143,8 +138,7 @@ async function createTwitterCards(options) {
 
   // Draw an author text
   ctx.font = getFontStyle({
-    fontWeight: options.style.author.fontWeight,
-    fontSize: options.style.author.fontSize,
+    ...options.style.author,
     fontFamily: options.style.fontFamily,
   })
   ctx.fillStyle = options.style.author.fontColor
