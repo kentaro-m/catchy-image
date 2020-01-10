@@ -16,7 +16,7 @@ function calcurateTextIntoRectangle({ ctx, text, style, rect }) {
     })
     // Add support for surrogate-pair.
     let words = [...text]
-    let { paddingHorizontal, paddingTop } = rect
+    let { paddingLeft, paddingTop } = rect
     const lines = []
 
     while (words.length > 0) {
@@ -41,7 +41,7 @@ function calcurateTextIntoRectangle({ ctx, text, style, rect }) {
 
       lines.push({
         text: slicedText,
-        x: paddingHorizontal,
+        x: paddingLeft,
         y: paddingTop + textSize.emHeightAscent
       });
 
@@ -88,10 +88,11 @@ async function createTwitterCards(options) {
       fontWeight: options.style.title.fontWeight,
     },
     rect: {
-      paddingHorizontal: options.style.title.paddingHorizontal,
       paddingTop: options.style.title.paddingTop,
       paddingBottom: options.style.title.paddingBottom,
-      width: options.image.width - options.style.title.paddingHorizontal * 2,
+      paddingLeft: options.style.title.paddingLeft,
+      paddingRight: options.style.title.paddingRight,
+      width: options.image.width - options.style.title.paddingLeft - options.style.title.paddingRight,
       height:
         options.image.height - options.style.title.paddingTop - options.style.title.paddingBottom
     }
@@ -130,9 +131,10 @@ const config = {
       fontColor: '#1DA1F2',
       fontWeight: 'bold',
       fontSize: 72,
-      paddingHorizontal: 150,
       paddingTop: 0,
       paddingBottom: 175,
+      paddingLeft: 150,
+      paddingRight: 150,
     },
     author: {
       fontColor: '#DDDDDD',
