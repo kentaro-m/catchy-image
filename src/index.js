@@ -6,7 +6,8 @@ const config = {
     width: 1200,
     height: 630,
     backgroundColor: '#15202B',
-    backgroundImage: require.resolve('./images/background.jpg')
+    backgroundImage: require.resolve('./images/background.jpg'),
+    outputFileName: 'twitter-cards.png'
   },
   style: {
     fontFamily: 'Noto Sans CJK JP',
@@ -156,7 +157,7 @@ async function createTwitterCards(options) {
   ctx.drawImage(image, 150, options.image.height - 150, 80, 80)
 
   const buffer = canvas.toBuffer();
-  await fs.writeFile("test.png", buffer);
+  await fs.writeFile(options.image.outputFileName, buffer);
 }
 
 createTwitterCards(config)
