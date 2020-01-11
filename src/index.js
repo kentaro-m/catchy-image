@@ -2,6 +2,11 @@ const { createCanvas, registerFont, Image } = require('canvas')
 const fs = require('fs').promises
 
 /**
+ * Calcurate text positions to draw texts into rectangle
+ * 
+ * @param {Object} options options to draw texts
+ * 
+ * Referred to codes in the below repository (shuhei/shuhei.github.com).
  * @see https://github.com/shuhei/shuhei.github.com/blob/source/plugins/title-image.js 
  */
 function calcurateTextPositionIntoRectangle({ ctx, text, style, rect }) {
@@ -64,16 +69,31 @@ function calcurateTextPositionIntoRectangle({ ctx, text, style, rect }) {
   }
 }
 
+/**
+ * Crete font style property from a font style object.
+ * 
+ * @param {Object} style font styles
+ */
 function getFontStyle(style) {
   return `${style.fontWeight} ${style.fontSize}px "${style.fontFamily}"`
 }
 
-async function getImage(fileData) {
+/**
+ * Create Image object from image file.
+ * 
+ * @param {Buffer} fileData image data from local file system
+ */
+function getImage(fileData) {
   const image = new Image()
   image.src = fileData
   return image
 }
 
+/**
+ * Generate Open Graph images.
+ * 
+ * @param {Object} options options to generate an image 
+ */
 module.exports = async function (options) {
   registerFont(options.fontFile, { family: options.style.fontFamily, weight: options.style.fontWeight })
 
@@ -86,7 +106,7 @@ module.exports = async function (options) {
 
   if ('backgroundImage' in options.image && options.image.backgroundImage) {
     const imageFile = await fs.readFile(options.image.backgroundImage);
-    const image = await getImage(imageFile)
+    const image = getImage(imageFile)
     ctx.drawImage(image, 0, 0, options.image.width, options.image.height)
   }
 
@@ -120,7 +140,7 @@ module.exports = async function (options) {
 
   // Draw a icon
   const imageFile = await fs.readFile(require.resolve(options.iconFile));
-  const image = await getImage(imageFile)
+  const image = getImage(imageFile)
   ctx.drawImage(image, 150, options.image.height - 150, 80, 80)
 
   const buffer = canvas.toBuffer();
