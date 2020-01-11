@@ -1,41 +1,6 @@
 const { createCanvas, registerFont, Image } = require('canvas')
 const fs = require('fs').promises
 
-const config = {
-  image: {
-    width: 1200,
-    height: 630,
-    backgroundColor: '#15202B',
-    backgroundImage: require.resolve('./images/background.jpg'),
-    outputFileName: 'twitter-cards.png'
-  },
-  style: {
-    fontFamily: 'Noto Sans CJK JP',
-    title: {
-      fontColor: '#1DA1F2',
-      fontWeight: 'bold',
-      fontSize: 64,
-      paddingTop: 100,
-      paddingBottom: 200,
-      paddingLeft: 150,
-      paddingRight: 150,
-    },
-    author: {
-      fontColor: '#DDDDDD',
-      fontWeight: 'bold',
-      fontSize: 42,
-    }
-  },
-  meta: {
-    title: 'ブランチ名をもとにIssueとPull Requestを自動で紐付けるGitHub Actionを作った',
-    author: 'Kentaro Matsushita'
-  },
-  fontFile: './fonts/NotoSansCJKjp-Bold.ttf',
-  iconFile: './images/avatar.jpeg',
-}
-
-registerFont(config.fontFile, { family: config.style.fontFamily, weight: config.style.fontWeight })
-
 /**
  * @see https://github.com/shuhei/shuhei.github.com/blob/source/plugins/title-image.js 
  */
@@ -109,7 +74,9 @@ async function getImage(fileData) {
   return image
 }
 
-async function createTwitterCards(options) {
+module.exports = async function (options) {
+  registerFont(options.fontFile, { family: options.style.fontFamily, weight: options.style.fontWeight })
+
   const canvas = createCanvas(options.image.width, options.image.height)
   const ctx = canvas.getContext('2d')
 
@@ -117,8 +84,8 @@ async function createTwitterCards(options) {
   ctx.fillStyle = options.image.backgroundColor
   ctx.fillRect(0, 0, options.image.width, options.image.height);
 
-  if ('backgroundImage' in config.image && config.image.backgroundImage) {
-    const imageFile = await fs.readFile(config.image.backgroundImage);
+  if ('backgroundImage' in options.image && options.image.backgroundImage) {
+    const imageFile = await fs.readFile(options.image.backgroundImage);
     const image = await getImage(imageFile)
     ctx.drawImage(image, 0, 0, options.image.width, options.image.height)
   }
@@ -152,7 +119,7 @@ async function createTwitterCards(options) {
   ctx.fillText(options.meta.author, 260, options.image.height - 90);
 
   // Draw a icon
-  const imageFile = await fs.readFile(require.resolve(config.iconFile));
+  const imageFile = await fs.readFile(require.resolve(options.iconFile));
   const image = await getImage(imageFile)
   ctx.drawImage(image, 150, options.image.height - 150, 80, 80)
 
@@ -160,4 +127,3 @@ async function createTwitterCards(options) {
   await fs.writeFile(options.image.outputFileName, buffer);
 }
 
-createTwitterCards(config)
