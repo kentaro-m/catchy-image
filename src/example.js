@@ -6,7 +6,7 @@ const config = {
     height: 630,
     backgroundColor: '#15202B',
     backgroundImage: require.resolve('./images/background.jpg'),
-    outputFileName: 'twitter-cards.png'
+    outputFileName: 'twitter-cards.png',
   },
   style: {
     fontFamily: 'Noto Sans CJK JP',
@@ -23,11 +23,11 @@ const config = {
       fontColor: '#DDDDDD',
       fontWeight: 'bold',
       fontSize: 42,
-    }
+    },
   },
   meta: {
     title: '怠惰なエンジニアのためのポートフォリオサイト構築術',
-    author: 'Kentaro Matsushita'
+    author: 'Kentaro Matsushita',
   },
   fontFile: require.resolve('./fonts/NotoSansCJKjp-Bold.otf'),
   iconFile: require.resolve('./images/avatar.jpeg'),
