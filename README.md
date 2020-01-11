@@ -11,10 +11,10 @@ An image generated from this package.
 ## :arrow_forward: Usage
 **Execute this package requires Node v12.**
 
-Install a package using the npm CLI.
+Install a package using the npm CLI. I have not published this package on npm yet. You can install it from GitHub instead.
 
 ```bash
-$ npm install --save generate-og-image
+$ npm install --save kentaro-m/generate-og-image
 ```
 
 Write codes for importing a module, setting up options for generating an image, and executing a module.
