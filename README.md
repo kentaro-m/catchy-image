@@ -67,3 +67,8 @@ $ npm run dev
 
 ## :memo: Licence
 MIT
+
+## :heart: Acknowledgments
+Inspired by [@shuhei](https://github.com/shuhei)'s article.
+
+[Generating Twitter Card Images from Blog Post Titles - Shuhei Kagawa](https://shuheikagawa.com/blog/2019/10/13/generating-twitter-card-images/)
