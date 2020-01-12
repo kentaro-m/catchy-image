@@ -162,29 +162,52 @@ async function generateOpenGraphImage(options) {
   await fs.writeFile(options.image.outputFileName, buffer)
 }
 
-let timeoutId = null
-
 /**
  * Fail a process if it cannot be completed within a timeout specified.
- *
- * @param {number} timeoutMs a millisecond to occur timeout error
  */
-async function timeout(timeoutMs = 10000) {
-  return new Promise((_, reject) => {
-    timeoutId = setTimeout(() => {
-      reject(
-        new Error(
-          'Occurred timeout error in the process to generate an image. Change a smaller font size or shorten texts in the options and retry.'
+function timeout() {
+  let timeoutId = null
+
+  /**
+   * Fail a process if it cannot be completed within a timeout specified.
+   * @param {number} timeoutMs a millisecond to occur timeout error
+   */
+  const handle = async (timeoutMs = 10000) =>
+    new Promise((_, reject) => {
+      timeoutId = setTimeout(() => {
+        reject(
+          new Error(
+            'Occurred timeout error in the process to generate an image. Change a smaller font size or shorten texts in the options and retry.'
+          )
         )
-      )
-    }, timeoutMs)
-  })
+      }, timeoutMs)
+    })
+
+  /**
+   * Cancel timeout.
+   */
+  const cancel = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+  }
+
+  return {
+    handle,
+    cancel,
+  }
 }
 
-module.exports = async options =>
-  Promise.race([generateOpenGraphImage(options), timeout(options.timeout)])
-    .then(() => clearTimeout(timeoutId))
+module.exports = async options => {
+  const t = timeout()
+
+  await Promise.race([
+    generateOpenGraphImage(options),
+    t.handle(options.timeout),
+  ])
+    .then(() => t.cancel())
     .catch(error => {
-      clearTimeout(timeoutId)
+      t.cancel()
       throw error
     })
+}
