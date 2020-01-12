@@ -66,6 +66,10 @@ function calcurateTextPositionIntoRectangle({ ctx, text, style, rect }) {
         lines: centeredLines,
       }
     }
+
+    throw new Error(
+      'Failed a process to calculate text positions to draw texts into a rectangle. Change a smaller font size or shorten texts in the options and retry.'
+    )
   }
 }
 
@@ -94,7 +98,7 @@ function getImage(fileData) {
  *
  * @param {Object} options options to generate an image
  */
-module.exports = async function(options) {
+async function generateOpenGraphImage(options) {
   if ('fontFile' in options && options.fontFile.length > 0) {
     options.fontFile.forEach(({ path, family, weight }) => {
       registerFont(path, {
@@ -122,7 +126,6 @@ module.exports = async function(options) {
     text: options.meta.title,
     style: {
       ...options.style.title,
-      // fontFamily: options.style.title.fontFamily,
     },
     rect: {
       width:
@@ -158,3 +161,30 @@ module.exports = async function(options) {
   const buffer = canvas.toBuffer()
   await fs.writeFile(options.image.outputFileName, buffer)
 }
+
+let timeoutId = null
+
+/**
+ * Fail a process if it cannot be completed within a timeout specified.
+ *
+ * @param {number} timeoutMs a millisecond to occur timeout error
+ */
+async function timeout(timeoutMs = 10000) {
+  return new Promise((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(
+        new Error(
+          'Occurred timeout error in the process to generate an image. Change a smaller font size or shorten texts in the options and retry.'
+        )
+      )
+    }, timeoutMs)
+  })
+}
+
+module.exports = async options =>
+  Promise.race([generateOpenGraphImage(options), timeout(options.timeout)])
+    .then(() => clearTimeout(timeoutId))
+    .catch(error => {
+      clearTimeout(timeoutId)
+      throw error
+    })

@@ -43,6 +43,16 @@ const config = {
     },
   ],
   iconFile: require.resolve('./images/avatar.jpeg'),
+  timeout: 10000,
 }
 
-generateOpenGraphImage(config)
+/**
+ * Add an exclamation mark to avoid formatting codes of an immediately invoked function expression (IIFE).
+ */
+!(async () => {
+  try {
+    await generateOpenGraphImage(config)
+  } catch (error) {
+    console.error(error)
+  }
+})()

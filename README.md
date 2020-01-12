@@ -65,6 +65,7 @@ const options = {
     },
   ],
   iconFile: require.resolve('./images/avatar.jpeg'),
+  timeout: 10000,
 }
 
 generateOpenGraphImage(options)
