@@ -6,7 +6,7 @@ A npm package for generating Open Graph images like Twitter Cards.
 ## :art: Example
 An image generated from this package.
 
-![An image for Twitter Cards](./twitter-cards.png)
+![An Open Graph image](./og-image.png)
 
 ## :arrow_forward: Usage
 **Execute this package requires Node v12.**
