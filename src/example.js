@@ -6,11 +6,11 @@ const config = {
     height: 630,
     backgroundColor: '#15202B',
     backgroundImage: require.resolve('./images/background.jpg'),
-    outputFileName: 'twitter-cards.png',
+    outputFileName: 'og-image.png',
   },
   style: {
-    fontFamily: 'Noto Sans CJK JP',
     title: {
+      fontFamily: 'Noto Sans CJK JP',
       fontColor: '#1DA1F2',
       fontWeight: 'bold',
       fontSize: 64,
@@ -20,8 +20,9 @@ const config = {
       paddingRight: 150,
     },
     author: {
+      fontFamily: 'Noto Sans CJK JP',
       fontColor: '#DDDDDD',
-      fontWeight: 'bold',
+      fontWeight: '400',
       fontSize: 42,
     },
   },
@@ -29,7 +30,18 @@ const config = {
     title: '怠惰なエンジニアのためのポートフォリオサイト構築術',
     author: 'Kentaro Matsushita',
   },
-  fontFile: require.resolve('./fonts/NotoSansCJKjp-Bold.otf'),
+  fontFile: [
+    {
+      path: require.resolve('./fonts/NotoSansCJKjp-Bold.otf'),
+      family: 'Noto Sans CJK JP',
+      weight: 'bold',
+    },
+    {
+      path: require.resolve('./fonts/NotoSansCJKjp-Regular.otf'),
+      family: 'Noto Sans CJK JP',
+      weight: '400',
+    },
+  ],
   iconFile: require.resolve('./images/avatar.jpeg'),
 }
 

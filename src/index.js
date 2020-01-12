@@ -95,9 +95,11 @@ function getImage(fileData) {
  * @param {Object} options options to generate an image
  */
 module.exports = async function(options) {
-  registerFont(options.fontFile, {
-    family: options.style.fontFamily,
-    weight: options.style.fontWeight,
+  options.fontFile.forEach(({ path, family, weight }) => {
+    registerFont(path, {
+      family,
+      weight,
+    })
   })
 
   const canvas = createCanvas(options.image.width, options.image.height)
@@ -118,7 +120,7 @@ module.exports = async function(options) {
     text: options.meta.title,
     style: {
       ...options.style.title,
-      fontFamily: options.style.fontFamily,
+      // fontFamily: options.style.title.fontFamily,
     },
     rect: {
       width:
@@ -141,7 +143,7 @@ module.exports = async function(options) {
   // Draw an author text
   ctx.font = getFontStyle({
     ...options.style.author,
-    fontFamily: options.style.fontFamily,
+    fontFamily: options.style.author.fontFamily,
   })
   ctx.fillStyle = options.style.author.fontColor
   ctx.fillText(options.meta.author, 260, options.image.height - 90)
