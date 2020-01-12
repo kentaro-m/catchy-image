@@ -95,12 +95,14 @@ function getImage(fileData) {
  * @param {Object} options options to generate an image
  */
 module.exports = async function(options) {
-  options.fontFile.forEach(({ path, family, weight }) => {
-    registerFont(path, {
-      family,
-      weight,
+  if ('fontFile' in options && options.fontFile.length > 0) {
+    options.fontFile.forEach(({ path, family, weight }) => {
+      registerFont(path, {
+        family,
+        weight,
+      })
     })
-  })
+  }
 
   const canvas = createCanvas(options.image.width, options.image.height)
   const ctx = canvas.getContext('2d')
