@@ -1,3 +1,4 @@
+require('colors')
 const generateOpenGraphImage = require('.')
 
 const config = {
@@ -51,8 +52,9 @@ const config = {
  */
 !(async () => {
   try {
-    await generateOpenGraphImage(config)
+    const output = await generateOpenGraphImage(config)
+    console.log('INFO'.brightBlue + ' - ' + `Generated an image: ${output}`)
   } catch (error) {
-    console.error(error)
+    console.error('ERROR'.brightRed + ' - ' + error.message)
   }
 })()

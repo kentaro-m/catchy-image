@@ -68,7 +68,14 @@ const options = {
   timeout: 10000,
 }
 
-generateOpenGraphImage(options)
+(async () => {
+  try {
+    // Return an image file path (e.g. og-image.png)
+    const output = await generateOpenGraphImage(options)
+  } catch (error) {
+    // Add an error handling
+  }
+})()
 ```
 
 ## :construction_worker: Development

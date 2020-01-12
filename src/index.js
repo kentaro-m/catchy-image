@@ -160,6 +160,7 @@ async function generateOpenGraphImage(options) {
 
   const buffer = canvas.toBuffer()
   await fs.writeFile(options.image.outputFileName, buffer)
+  return options.image.outputFileName
 }
 
 /**
@@ -201,11 +202,14 @@ function timeout() {
 module.exports = async options => {
   const t = timeout()
 
-  await Promise.race([
+  return Promise.race([
     generateOpenGraphImage(options),
     t.handle(options.timeout),
   ])
-    .then(() => t.cancel())
+    .then(output => {
+      t.cancel()
+      return output
+    })
     .catch(error => {
       t.cancel()
       throw error
