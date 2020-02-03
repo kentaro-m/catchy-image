@@ -7,7 +7,8 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "dev": "node src/example.js"
+    "dev": "node src/example.js",
+    "build": "babel src/index.js --out-dir lib"
   },
   "author": "Kentaro Matsushita",
   "license": "MIT",
@@ -15,6 +16,9 @@
     "canvas": "^2.6.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "colors": "^1.4.0",
     "prettier": "^1.19.1"
   }
