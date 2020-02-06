@@ -6,7 +6,7 @@ A npm package for generating Open Graph images like Twitter Cards.
 ## :art: Example
 An image generated from this package.
 
-![An Open Graph image](./og-image.png)
+![An Open Graph image](./thumbnail.png)
 
 ## :arrow_forward: Usage
 **Execute this package requires Node v12.**
@@ -23,12 +23,15 @@ Write codes for importing a module, setting up options for generating an image, 
 const generateOpenGraphImage = require('generate-og-image')
 
 const options = {
+  output: {
+    directory: '',
+    fileName: 'thumbnail.png',
+  },
   image: {
     width: 1200,
     height: 630,
     backgroundColor: '#15202B',
     backgroundImage: require.resolve('./images/background.jpg'),
-    outputFileName: 'og-image.png',
   },
   style: {
     title: {

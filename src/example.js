@@ -2,12 +2,15 @@ require('colors')
 const generateOpenGraphImage = require('.')
 
 const config = {
+  output: {
+    directory: '',
+    fileName: 'thumbnail.png',
+  },
   image: {
     width: 1200,
     height: 630,
     backgroundColor: '#15202B',
     backgroundImage: require.resolve('./images/background.jpg'),
-    outputFileName: 'og-image.png',
   },
   style: {
     title: {

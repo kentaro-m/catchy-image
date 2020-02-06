@@ -1,5 +1,6 @@
 const { createCanvas, registerFont, Image } = require('canvas')
 const fs = require('fs').promises
+const path = require('path')
 
 /**
  * Calcurate text positions to draw texts into rectangle
@@ -161,15 +162,17 @@ async function generateOpenGraphImage(options) {
   const buffer = canvas.toBuffer()
 
   try {
-    await fs.mkdir(options.image.outputFileName, { recursive: true })
-    await fs.writeFile(options.image.outputFileName, buffer)
+    if (options.output.directory) {
+      await fs.mkdir(options.output.directory, { recursive: true })
+    }
+    await fs.writeFile(options.output.fileName, buffer)
   } catch (error) {
     if (error.code !== 'EEXIST') {
       throw error
     }
   }
 
-  return options.image.outputFileName
+  return path.join(options.output.directory, options.output.fileName)
 }
 
 /**
