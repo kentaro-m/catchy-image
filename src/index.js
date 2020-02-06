@@ -159,7 +159,16 @@ async function generateOpenGraphImage(options) {
   ctx.drawImage(image, 150, options.image.height - 150, 80, 80)
 
   const buffer = canvas.toBuffer()
-  await fs.writeFile(options.image.outputFileName, buffer)
+
+  try {
+    await fs.mkdir(options.image.outputFileName, { recursive: true })
+    await fs.writeFile(options.image.outputFileName, buffer)
+  } catch (error) {
+    if (error.code !== 'EEXIST') {
+      throw error
+    }
+  }
+
   return options.image.outputFileName
 }
 
