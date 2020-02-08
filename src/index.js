@@ -165,7 +165,10 @@ async function generateOpenGraphImage(options) {
     if (options.output.directory) {
       await fs.mkdir(options.output.directory, { recursive: true })
     }
-    await fs.writeFile(options.output.fileName, buffer)
+    await fs.writeFile(
+      path.join(options.output.directory, options.output.fileName),
+      buffer
+    )
   } catch (error) {
     if (error.code !== 'EEXIST') {
       throw error
