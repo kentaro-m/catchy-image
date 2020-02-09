@@ -1,4 +1,4 @@
-# Generate Open Graph Image
+# catchy-image
 A npm package for generating Open Graph images like Twitter Cards.
 
 **This package is under development.**
@@ -14,71 +14,72 @@ An image generated from this package.
 Install a package using the npm CLI. I have not published this package on npm yet. You can install it from GitHub instead.
 
 ```bash
-$ npm install --save kentaro-m/generate-og-image
+$ npm install --save kentaro-m/catchy-image
 ```
 
 Write codes for importing a module, setting up options for generating an image, and executing a module.
 
 ```js
-const generateOpenGraphImage = require('generate-og-image')
+const catchy = require('catchy-image')
 
-const options = {
-  output: {
-    directory: '',
-    fileName: 'thumbnail.png',
-  },
-  image: {
-    width: 1200,
-    height: 630,
-    backgroundColor: '#15202B',
-    backgroundImage: require.resolve('./images/background.jpg'),
-  },
-  style: {
-    title: {
-      fontFamily: 'Noto Sans CJK JP',
-      fontColor: '#1DA1F2',
-      fontWeight: 'bold',
-      fontSize: 64,
-      paddingTop: 100,
-      paddingBottom: 200,
-      paddingLeft: 150,
-      paddingRight: 150,
-    },
-    author: {
-      fontFamily: 'Noto Sans CJK JP',
-      fontColor: '#DDDDDD',
-      fontWeight: '400',
-      fontSize: 42,
-    },
-  },
-  meta: {
-    title: '怠惰なエンジニアのためのポートフォリオサイト構築術',
-    author: 'Kentaro Matsushita',
-  },
-  fontFile: [
-    {
-      path: require.resolve('./fonts/NotoSansCJKjp-Bold.otf'),
-      family: 'Noto Sans CJK JP',
-      weight: 'bold',
-    },
-    {
-      path: require.resolve('./fonts/NotoSansCJKjp-Regular.otf'),
-      family: 'Noto Sans CJK JP',
-      weight: '400',
-    },
-  ],
-  iconFile: require.resolve('./images/avatar.jpeg'),
-  timeout: 10000,
+async function run() {
+    const options = {
+      output: {
+        directory: '',
+        fileName: 'thumbnail.png',
+      },
+      image: {
+        width: 1200,
+        height: 630,
+        backgroundColor: '#222639',
+        // backgroundImage: require.resolve('./images/background.jpg'),
+      },
+      style: {
+        title: {
+          fontFamily: 'Noto Sans CJK JP',
+          fontColor: '#bb99ff',
+          fontWeight: 'bold',
+          fontSize: 64,
+          paddingTop: 100,
+          paddingBottom: 200,
+          paddingLeft: 150,
+          paddingRight: 150,
+        },
+        author: {
+          fontFamily: 'Noto Sans CJK JP',
+          fontColor: '#f0f5fa',
+          fontWeight: '400',
+          fontSize: 42,
+        },
+      },
+      meta: {
+        title: 'How to dynamically create  an Open Graph image.',
+        author: 'Kentaro Matsushita',
+      },
+      fontFile: [
+        {
+          path: require.resolve('./fonts/NotoSansCJKjp-Bold.otf'),
+          family: 'Noto Sans CJK JP',
+          weight: 'bold',
+        },
+        {
+          path: require.resolve('./fonts/NotoSansCJKjp-Regular.otf'),
+          family: 'Noto Sans CJK JP',
+          weight: '400',
+        },
+      ],
+      iconFile: require.resolve('./images/avatar.jpeg'),
+      timeout: 10000,
+    }
+
+    const output = await catchy.generate(options)
+    console.log(`Successfully generated: ${output}`)
+  } catch (error) {
+    console.error(error)
+  }
 }
 
-(async () => {
-  try {
-    // Return an image file path (e.g. og-image.png)
-    const output = await generateOpenGraphImage(options)
-  } catch (error) {
-    // Add an error handling
-  }
-})()
+run()
 ```
 
 ## :construction_worker: Development
