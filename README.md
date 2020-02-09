@@ -86,7 +86,7 @@ run()
 ```bash
 $ npm install
 # Execute an example script (src/example.js)
-$ npm run dev
+$ npm run build && npm run dev
 ```
 
 ## :memo: Licence

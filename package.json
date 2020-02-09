@@ -7,15 +7,20 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "dev": "node src/example.js"
+    "dev": "node src/example.js",
+    "build": "babel src/index.js -d lib",
+    "watch": "babel src/**/*.js --watch -d lib --verbose"
   },
   "author": "Kentaro Matsushita",
   "license": "MIT",
   "dependencies": {
-    "canvas": "^2.6.1"
+    "canvas": "^2.6.1",
+    "core-js": "^3.6.4"
   },
   "devDependencies": {
-    "colors": "^1.4.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "prettier": "^1.19.1"
   }
 }
