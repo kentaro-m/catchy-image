@@ -1,8 +1,6 @@
 # catchy-image
 A npm package for generating Open Graph images like Twitter Cards.
 
-**This package is under development.**
-
 ## :art: Example
 An image generated from this package.
 
@@ -14,7 +12,7 @@ An image generated from this package.
 Install a package using the npm CLI. I have not published this package on npm yet. You can install it from GitHub instead.
 
 ```bash
-$ npm install --save kentaro-m/catchy-image
+$ npm install --save catchy-image
 ```
 
 Write codes for importing a module, setting up options for generating an image, and executing a module.
