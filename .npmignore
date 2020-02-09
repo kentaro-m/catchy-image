@@ -1,0 +1,7 @@
+src/
+lib/example.js
+.github/
+.vscode/
+.babelrc
+.prettierrc.yaml
+*.png
