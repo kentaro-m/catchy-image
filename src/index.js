@@ -99,7 +99,7 @@ function getImage(fileData) {
  *
  * @param {Object} options options to generate an image
  */
-async function generateOpenGraphImage(options) {
+async function generateImage(options) {
   if ('fontFile' in options && options.fontFile.length > 0) {
     options.fontFile.forEach(({ path, family, weight }) => {
       registerFont(path, {
@@ -214,19 +214,23 @@ function timeout() {
   }
 }
 
-module.exports = async options => {
-  const t = timeout()
+const generate = async options => {
+  const timeoutHandler = timeout()
 
   return Promise.race([
-    generateOpenGraphImage(options),
-    t.handle(options.timeout),
+    generateImage(options),
+    timeoutHandler.handle(options.timeout),
   ])
     .then(output => {
-      t.cancel()
+      timeoutHandler.cancel()
       return output
     })
     .catch(error => {
-      t.cancel()
+      timeoutHandler.cancel()
       throw error
     })
+}
+
+module.exports = {
+  generate,
 }

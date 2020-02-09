@@ -1,5 +1,5 @@
 {
-  "name": "generate-og-image",
+  "name": "catchy-image",
   "version": "0.0.1",
   "description": "A npm package for generating Open Graph images like Twitter Cards.",
   "engines": {
