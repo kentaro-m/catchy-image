@@ -1,13 +1,18 @@
 # catchy-image
-A npm package for generating Open Graph images like Twitter Cards.
+![npm](https://img.shields.io/npm/v/catchy-image)
+![node](https://img.shields.io/node/v/catchy-image)
+![npm](https://img.shields.io/npm/dt/catchy-image)
+[![GitHub license](https://img.shields.io/github/license/kentaro-m/catchy-image)](https://github.com/kentaro-m/catchy-image/blob/master/LICENSE)
+
+A Node.js module for dynamically generating Open Graph images.
 
 ## :art: Example
-An image generated from this package.
+It can create an image like this by using the module.
 
-![An Open Graph image](./thumbnail.png)
+![An Open Graph image](https://raw.githubusercontent.com/kentaro-m/catchy-image/master/thumbnail.png)
 
 ## :arrow_forward: Usage
-**Execute this package requires Node v12.**
+**Executing this module requires Node v12.**
 
 Install a package using the npm CLI. I have not published this package on npm yet. You can install it from GitHub instead.
 
