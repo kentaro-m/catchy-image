@@ -155,6 +155,12 @@ $ npm install
 $ npm run build && npm run dev
 ```
 
+## Tests
+```
+$ docker build -t snapshot-test:0.1.1 .
+$ docker run -v `pwd`/test:/usr/src/app/test snapshot-test:0.1.1
+```
+
 ## :memo: Licence
 MIT
 

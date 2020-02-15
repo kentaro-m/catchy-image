@@ -8,6 +8,15 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: npm install
-    - run: npm run build && npm run dev
+    - name: Login to GitHub Package Registry
+      run: docker login docker.pkg.github.com -u kentaro-m -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Pull image from GitHub Package Registry
+      run: docker pull docker.pkg.github.com/kentaro-m/catchy-image/snapshot-test:0.1.1
+    - name: Run snapshot tests
+      run: docker run -v `pwd`/test:/usr/src/app/test docker.pkg.github.com/kentaro-m/catchy-image/snapshot-test:0.1.1
+    - uses: actions/upload-artifact@v1
+      if: always()
+      with:
+        name: snapshot-test-result
+        path: test
     
