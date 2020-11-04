@@ -26,6 +26,7 @@ Write codes for importing a module, setting up options for generating an image, 
 const catchy = require('catchy-image')
 
 async function run() {
+  try {
     const options = {
       output: {
         directory: '',
